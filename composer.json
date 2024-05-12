@@ -40,6 +40,23 @@
             "Workbench\\Database\\Factories\\": "workbench/database/factories/"
         }
     },
+    "scripts": {
+        "checkall": [
+            "composer validate",
+            "@checktype",
+            "@test"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "XDEBUG_MODE=off phpunit"
+        ],
+        "test-report": [
+            "Composer\\Config::disableProcessTimeout",
+            "XDEBUG_MODE=off php -dpcov.enabled=1 -dpcov.directory=. vendor/bin/phpunit --coverage-text --coverage-html coverage/html"
+        ],
+        "fixstyle": "XDEBUG_MODE=off phpcbf -n",
+        "checktype": "XDEBUG_MODE=off phpstan analyse --memory-limit=-1"
+    },
     "extra": {
         "laravel": {
             "providers": [
