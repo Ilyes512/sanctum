@@ -5,6 +5,7 @@ namespace Laravel\Sanctum;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Laravel\Sanctum\Contracts\HasApiTokens;
 use Laravel\Sanctum\Events\TokenAuthenticated;
 
 class Guard
@@ -100,9 +101,7 @@ class Guard
      */
     protected function supportsTokens($tokenable = null)
     {
-        return $tokenable && in_array(HasApiTokens::class, class_uses_recursive(
-            get_class($tokenable)
-        ));
+        return $tokenable && $tokenable instanceof HasApiTokens;
     }
 
     /**
